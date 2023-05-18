@@ -23,7 +23,7 @@ describe('Server Test Suit', () => {
   });
 
   test('wrong method', async () => {
-    const response = await appWithSupertest.post('/food/1');
+    const response = await appWithSupertest.post('/region/1');
 
     expect(response.status).toBe(404);
     expect(response.body.message).toEqual('Method not found');
@@ -100,14 +100,14 @@ describe('Country Router Test Suite', () => {
 
 });
 
-describe('Food Router Test Suite', () => {
+describe('region Router Test Suite', () => {
 
   test('post request good', async () => {
-    let response = await appWithSupertest.post('/food').send({
+    let response = await appWithSupertest.post('/region').send({
       name: 'Test',
       continent: 'North America',
     });
-    await appWithSupertest.post('/food').send({
+    await appWithSupertest.post('/region').send({
       name: 'Test',
       continent: 'North America',
     });
@@ -118,24 +118,24 @@ describe('Food Router Test Suite', () => {
   });
   
   test('put request good', async() => {
-    let response = await appWithSupertest.put('/food/1').send({
+    let response = await appWithSupertest.put('/region/1').send({
       name: 'Test Updated',
     });
     expect(response.status).toBe(200);
   });
   
   test('put and delete request fail', async() => {
-    let response1 = await appWithSupertest.put('/food/3').send({
+    let response1 = await appWithSupertest.put('/region/3').send({
       name: 'Test Updated',
     });
-    let response2 = await appWithSupertest.delete('/food/3');
+    let response2 = await appWithSupertest.delete('/region/3');
       
     expect(response1.status).toBe(404);
     expect(response2.status).toBe(404);
   });
   
   test('get ONE request good', async () => {
-    let response = await appWithSupertest.get('/food/1');
+    let response = await appWithSupertest.get('/region/1');
     
     expect(response.status).toBe(200);
     expect(response.body[0].name).toEqual('Test Updated');
@@ -143,7 +143,7 @@ describe('Food Router Test Suite', () => {
   });
   
   test('get ALL request good', async () => {
-    let response = await appWithSupertest.get('/food');
+    let response = await appWithSupertest.get('/region');
     
     expect(response.status).toBe(200);
     expect(response.body[1].name).toEqual('Test');
@@ -151,7 +151,7 @@ describe('Food Router Test Suite', () => {
   });
   
   test('delete request good', async() => {
-    let response = await appWithSupertest.delete('/food/1');
+    let response = await appWithSupertest.delete('/region/1');
 
     expect(response.status).toBe(200);
   });  

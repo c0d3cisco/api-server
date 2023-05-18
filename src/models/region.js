@@ -1,7 +1,7 @@
 'use strict';
 
 module.exports = (sequelizeDatabase, DataTypes) => {
-  return sequelizeDatabase.define('foods', {
+  return sequelizeDatabase.define('regions', {
 
     name: {
       type: DataTypes.STRING,
@@ -12,7 +12,7 @@ module.exports = (sequelizeDatabase, DataTypes) => {
       type: DataTypes.ENUM,
       values: ['North America', 'South America', 'Asia', 'Europe', 'Africa', 'Oceania'],
     },
-    
+
     countryID: {
       type: DataTypes.INTEGER,
       allowNull: false,

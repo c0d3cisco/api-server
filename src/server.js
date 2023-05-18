@@ -7,12 +7,12 @@ const error404 = require('./error-handlers/404');
 // const error500 = require('./error-handlers/500');
 
 // pulls the route with links to RESTful functionality
-const foodRouter = require('./routes/food');
+const regionRouter = require('./routes/region');
 const countryRouter = require('./routes/country');
 
 app.use(cors());
 app.use(express.json());
-app.use(foodRouter);
+app.use(regionRouter);
 app.use(countryRouter);
 
 app.get('/', (req, res, next) => {

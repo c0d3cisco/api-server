@@ -24,17 +24,18 @@ router.get('/food/:id', async (req, res, next) => {
 });
 
 router.put('/food/:id', async (req, res, next) => {
-
-  let updateResponse = await foodModel.update(req.body, {where: {id: req.params.id}});
+  await foodModel.update(req.body, {where: {id: req.params.id}});
+  let updateResponse = await foodModel.findAll({where: {id: req.params.id}});
   console.log(updateResponse);
-  updateResponse[0] ?
-    res.status(200).send('Updated')
+
+  updateResponse ?
+    res.status(200).send(updateResponse)
     :res.status(404).send('Not found');
 });
 
 router.delete('/food/:id', async (req, res, next) => {
-
   let deleteResponse = await foodModel.destroy({where: {id: req.params.id}});
+
   deleteResponse ?
     res.status(200).send('Deleted')
     :res.status(404).send('Not found');

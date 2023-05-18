@@ -27,11 +27,11 @@ router.get('/country/:id', async (req, res, next) => {
 });
 
 router.put('/country/:id', async (req, res, next) => {
-
-  let updateResponse = await countryModel.update(req.body, {where: {id: req.params.id}});
+  await countryModel.update(req.body, {where: {id: req.params.id}});
+  let updateResponse = await countryModel.findOne({where: {id: req.params.id}});
   console.log(updateResponse);
-  updateResponse[0] ?
-    res.status(200).send('Updated')
+  updateResponse ?
+    res.status(200).send(updateResponse)
     :res.status(404).send('Not found');
 });
 

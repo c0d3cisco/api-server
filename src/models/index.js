@@ -18,6 +18,12 @@ const sequelizeDatabase = new Sequelize(DATABASE_URL);
 const countryModel = country(sequelizeDatabase, DataTypes);
 const foodModel = food(sequelizeDatabase, DataTypes);
 
-module.exports = { sequelizeDatabase, countryModel, foodModel };
+// countryModel.hasMany();
+
+module.exports = { 
+  sequelizeDatabase, 
+  countryModel, 
+  foodModel };
+
 // * sequelizeDatabase is used by main index.js
 // * Models are used by the routes!!

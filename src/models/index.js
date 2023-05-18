@@ -1,6 +1,5 @@
 'use strict';
 
-
 // this starts the sequelize and gets DataType construct.. 
 //? what is DataType?
 const { Sequelize, DataTypes } = require('sequelize');
@@ -9,17 +8,22 @@ const { Sequelize, DataTypes } = require('sequelize');
 const country = require('./country');
 const food = require('./food');
 
-const DATABASE_URL = process.env.DATABASE_URL;
+const DATABASE_URL = process.env.NODE_ENV === 'test' ? 'sqlite::memory:' : process.env.DATABASE_URL;
 
 // it looks like this creates a sequelize database object? 
 //? what is sequelizeDatabase if you console.log it?
 const sequelizeDatabase = new Sequelize(DATABASE_URL);
 
-
 //Models which can be used to create,read,update,delete are created from the model function for each model
 const countryModel = country(sequelizeDatabase, DataTypes);
 const foodModel = food(sequelizeDatabase, DataTypes);
 
-module.exports = { sequelizeDatabase, countryModel, foodModel };
+// countryModel.hasMany();
+
+module.exports = { 
+  sequelizeDatabase, 
+  countryModel, 
+  foodModel };
+
 // * sequelizeDatabase is used by main index.js
 // * Models are used by the routes!!

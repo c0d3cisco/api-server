@@ -14,21 +14,22 @@ const Collection = require('./collection');
 const DATABASE_URL = process.env.NODE_ENV === 'test' ? 'sqlite::memory:' : process.env.DATABASE_URL;
 
 // it looks like this creates a sequelize database object? 
-//? what is sequelizeDatabase if you console.log it?
-const sequelizeDatabase = new Sequelize(DATABASE_URL);
+//? what is sequelizedDatabase if you console.log it?
+const sequelizedDatabase = new Sequelize(DATABASE_URL);
 
 //Models which can be used to create,read,update,delete are created from the model function for each model
-const countryModel = country(sequelizeDatabase, DataTypes);
-const regionModel = region(sequelizeDatabase, DataTypes);
+const countryModel = country(sequelizedDatabase, DataTypes);
+const regionModel = region(sequelizedDatabase, DataTypes);
 
 // this will link the models
 countryModel.hasMany(regionModel);
 regionModel.belongsTo(countryModel); 
 
 module.exports = { 
-  sequelizeDatabase, 
-  countryModel, 
+  sequelizedDatabase, 
+  countryModel: new Collection(countryModel), 
+  regionModel,
   region: new Collection(regionModel) };
 
-// * sequelizeDatabase is used by main index.js
+// * sequelizedDatabase is used by main index.js
 // * Models are used by the routes!!

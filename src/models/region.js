@@ -7,14 +7,10 @@ module.exports = (sequelizeDatabase, DataTypes) => {
       type: DataTypes.STRING,
       allowNull: false,
     },
-
-    continent: {
-      type: DataTypes.ENUM,
-      values: ['North America', 'South America', 'Asia', 'Europe', 'Africa', 'Oceania'],
-    },
-
-    countryID: {
-      type: DataTypes.INTEGER,
+    
+    Exports: {
+      type: DataTypes.ARRAY(DataTypes.STRING),
+      defaultValue: ['wheat', 'corn'],
       allowNull: false,
     },
   });

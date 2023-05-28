@@ -6,7 +6,7 @@
 
 ### Problem Domain
 
-RESTful API Server that can log foods and countries..
+RESTful API Server that can log regions and countries..
 
 ### Links and Resources
 

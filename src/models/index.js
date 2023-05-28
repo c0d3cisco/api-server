@@ -4,26 +4,33 @@
 //? what is DataType?
 const { Sequelize, DataTypes } = require('sequelize');
 // pulls model function for country.. go to see how to set up https://sequelize.org/docs/v6/
-// country and food are functions that takes in the sequelize database object and DataTypes
+// country and region are functions that takes in the sequelize database object and DataTypes
 const country = require('./country');
-const food = require('./food');
+const region = require('./region');
 
-const DATABASE_URL = process.env.NODE_ENV === 'test' ? 'sqlite::memory:' : process.env.DATABASE_URL;
+// this acts as a constructor function;
+const Collection = require('./collection');
+
+const DATABASE_URL = process.env.NODE_ENV === 'test' ? 'sqlite:memory:' : process.env.DATABASE_URL;
 
 // it looks like this creates a sequelize database object? 
-//? what is sequelizeDatabase if you console.log it?
-const sequelizeDatabase = new Sequelize(DATABASE_URL);
+//? what is sequelizedDatabase if you console.log it?
+const sequelizedDatabase = new Sequelize(DATABASE_URL);
 
 //Models which can be used to create,read,update,delete are created from the model function for each model
-const countryModel = country(sequelizeDatabase, DataTypes);
-const foodModel = food(sequelizeDatabase, DataTypes);
+const countryModel = country(sequelizedDatabase, DataTypes);
+const regionModel = region(sequelizedDatabase, DataTypes);
 
-// countryModel.hasMany();
+// this will link the models
+countryModel.hasMany(regionModel);
+regionModel.belongsTo(countryModel); 
 
 module.exports = { 
-  sequelizeDatabase, 
-  countryModel, 
-  foodModel };
+  sequelizedDatabase, 
+  countryModel: new Collection(countryModel), 
+  regionModel,
+  region: new Collection(regionModel),
+};
 
-// * sequelizeDatabase is used by main index.js
+// * sequelizedDatabase is used by main index.js
 // * Models are used by the routes!!

@@ -5,7 +5,7 @@ const express = require('express');
 const router = express.Router();
 
 // countryModel (typeof what?) has special attributes from sequelize
-const { countryModel } = require('../models');
+const { countryModel, regionModel } = require('../models');
 
 // * THIS ARE THE ROUTER METHODS FOR C.R.U.D.
 router.post('/country', async (req, res, next) => {
@@ -16,19 +16,32 @@ router.post('/country', async (req, res, next) => {
 
 router.get('/country', async (req, res, next) => {
 
-  let countries = await countryModel.findAll();
+  let countries = await countryModel.read();
+  res.status(200).send(countries);
+});
+
+router.get('/countryWithRegions', async (req, res, next) => {
+
+  let countries = await countryModel.readWithAssociations(regionModel);
+  res.status(200).send(countries);
+});
+
+router.get('/countryWithRegions/:id', async (req, res, next) => {
+
+  let countries = await countryModel.readWithAssociations(regionModel, req.params.id);
   res.status(200).send(countries);
 });
 
 router.get('/country/:id', async (req, res, next) => {
 
-  let singleCountry = await countryModel.findOne({where: {id: req.params.id}});
+  let singleCountry = await countryModel.read(req.params.id);
   res.status(200).send(singleCountry);
 });
 
 router.put('/country/:id', async (req, res, next) => {
-  await countryModel.update(req.body, {where: {id: req.params.id}});
-  let updateResponse = await countryModel.findOne({where: {id: req.params.id}});
+  console.log(req.body);
+  await countryModel.update(req.body, req.params.id);
+  let updateResponse = await countryModel.read(req.params.id);
   console.log(updateResponse);
   updateResponse ?
     res.status(200).send(updateResponse)
@@ -37,7 +50,7 @@ router.put('/country/:id', async (req, res, next) => {
 
 router.delete('/country/:id', async (req, res, next) => {
 
-  let deleteResponse = await countryModel.destroy({where: {id: req.params.id}});
+  let deleteResponse = await countryModel.delete(req.params.id);
   deleteResponse ?
     res.status(200).send('Deleted')
     :res.status(404).send('Not found');

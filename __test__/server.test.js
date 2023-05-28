@@ -205,7 +205,7 @@ describe('Collection', () => {
       const data = { name: 'Test' };
       const result = await collection.create(data);
 
-      expect(console.error).toHaveBeenCalledWith("ModelInterface isn't creating", new Error('Failed to create model'));
+      expect(console.error).toHaveBeenCalledWith('ModelInterface isn\'t creating', new Error('Failed to create model'));
       expect(result).toEqual(new Error('Failed to create model'));
     });
 
@@ -224,7 +224,7 @@ describe('Collection', () => {
       const id = 1;
       const result = await collection.read(id);
 
-      expect(console.error).toHaveBeenCalledWith("ModelInterface isn't reading", new Error('Failed to find model'));
+      expect(console.error).toHaveBeenCalledWith('ModelInterface isn\'t reading', new Error('Failed to find model'));
       expect(result).toEqual(new Error('Failed to find model'));
     });
 
@@ -244,7 +244,7 @@ describe('Collection', () => {
       const id = 1;
       const result = await collection.readWithAssociations(associatedModel, id);
 
-      expect(console.error).toHaveBeenCalledWith("ModelInterface isn't reading", new Error('Failed to find models'));
+      expect(console.error).toHaveBeenCalledWith('ModelInterface isn\'t reading', new Error('Failed to find models'));
       expect(result).toEqual(new Error('Failed to find models'));
     });
 
@@ -264,7 +264,7 @@ describe('Collection', () => {
       const id = 1;
       const result = await collection.update(body, id);
 
-      expect(console.error).toHaveBeenCalledWith("ModelInterface isn't updating", new Error('Failed to update model'));
+      expect(console.error).toHaveBeenCalledWith('ModelInterface isn\'t updating', new Error('Failed to update model'));
       expect(result).toEqual(new Error('Failed to update model'));
     });
 
@@ -283,7 +283,7 @@ describe('Collection', () => {
       const id = 1;
       const result = await collection.delete(id);
 
-      expect(console.error).toHaveBeenCalledWith("ModelInterface isn't deleting", new Error('Failed to delete model'));
+      expect(console.error).toHaveBeenCalledWith('ModelInterface isn\'t deleting', new Error('Failed to delete model'));
       expect(result).toBeUndefined();
     });
 

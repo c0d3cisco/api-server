@@ -11,7 +11,7 @@ const region = require('./region');
 // this acts as a constructor function;
 const Collection = require('./collection');
 
-const DATABASE_URL = process.env.NODE_ENV === 'test' ? 'sqlite::memory:' : process.env.DATABASE_URL;
+const DATABASE_URL = process.env.NODE_ENV === 'test' ? 'sqlite:memory:' : process.env.DATABASE_URL;
 
 // it looks like this creates a sequelize database object? 
 //? what is sequelizedDatabase if you console.log it?
@@ -29,7 +29,8 @@ module.exports = {
   sequelizedDatabase, 
   countryModel: new Collection(countryModel), 
   regionModel,
-  region: new Collection(regionModel) };
+  region: new Collection(regionModel),
+};
 
 // * sequelizedDatabase is used by main index.js
 // * Models are used by the routes!!

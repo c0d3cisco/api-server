@@ -2,7 +2,6 @@
 
 //this gets process.env working
 require('dotenv').config();
-const {country, region} = require('./src/serverFunctions/model_exports');
 
 // this does not start sequelize, it just calls what will be starting it
 const { sequelizedDatabase } = require('./src/models');
@@ -18,7 +17,6 @@ sequelizedDatabase.sync()
   })
   .catch(e => console.error(e));
 
-
 async function initializeDatabase() {
   try {
     // Synchronize the Regions model with the database table
@@ -29,41 +27,11 @@ async function initializeDatabase() {
   }
 }
 
-async function initializeCountries() {
-  try {
-    // Synchronize the Regions model with the database table
-    await country.sync({ force: true });
-    console.log('All models were synchronized successfully');
-  } catch (error) {
-    console.error('Error occurred while syncing all models.', error);
-  }
-}
-
-async function initializeRegions() {
-  try {
-    // Synchronize the Regions model with the database table
-    console.log(region);
-    await region.sync({ force: true });
-    console.log('All models were synchronized successfully');
-  } catch (error) {
-    console.error('Error occurred while syncing all models.', error);
-  }
-}
-
-
 process.stdin.on('data', data => {
 
   if(data.toString().slice(0, -1) === 'clear all'){
     console.log('clearing ALL table');
     initializeDatabase();
-  }
-  if(data.toString().slice(0, -1) === 'clear countries'){
-    console.log('clearing COUNTRIES table');
-    initializeCountries();
-  }
-  if(data.toString().slice(0, -1) === 'clear regions'){
-    console.log('clearing REGIONS table');
-    initializeRegions();
   }
   // process.exit();
 });
